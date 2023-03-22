@@ -9,8 +9,8 @@ const BASE_URL = 'https://api.themoviedb.org/3/trending/movie/day';
 const Home = () => {
     const [isLoading, setIsLoading] = useState('false');
     const [movies, setMovies] = useState([]);
-    const [error, setError] = useState(null);
-    const [totalPages, setTotalPages] = useState(0);
+    //const [error, setError] = useState(null);
+    //const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
     
@@ -23,9 +23,9 @@ const Home = () => {
                 const response = await axios.get(url);
                 console.log(response);
                 setMovies(prevState => [...prevState, ...response.data.results]);
-                setTotalPages(response.data.total_pages);
+                //setTotalPages(response.data.total_pages);
             } catch(error) {
-                setError(error)
+                //setError(error)
                 console.log (error)
             } finally {
                 setIsLoading(false); 
