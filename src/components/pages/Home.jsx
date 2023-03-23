@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
-import { ColorRing } from  'react-loader-spinner'
+//import { ColorRing } from  'react-loader-spinner'
 const API_KEY = '28b9dff9541e6a7c7078bb12d751dcf6';
 const BASE_URL = 'https://api.themoviedb.org/3/trending/movie/day';
-//https://api.themoviedb.org/3/movie/550?api_key=28b9dff9541e6a7c7078bb12d751dcf6
 
 const Home = () => {
-    const [isLoading, setIsLoading] = useState('false');
+    //const [isLoading, setIsLoading] = useState('false');
     const [movies, setMovies] = useState([]);
     //const [error, setError] = useState(null);
     //const [totalPages, setTotalPages] = useState(0);
@@ -16,7 +15,7 @@ const Home = () => {
     
         async function fetchData(){
             
-            setIsLoading(true);
+            //setIsLoading(true);
             try {
                
                 const url = `${BASE_URL}?api_key=${API_KEY}`;
@@ -28,7 +27,7 @@ const Home = () => {
                 //setError(error)
                 console.log (error)
             } finally {
-                setIsLoading(false); 
+                //setIsLoading(false); 
             }
         };
         fetchData()
@@ -37,7 +36,7 @@ const Home = () => {
 return (
     <div>
     <h2>Trending today</h2>
-    {isLoading &&<ColorRing
+    {/* {isLoading &&<ColorRing
             visible={true}
             height="80"
             width="80"
@@ -45,16 +44,20 @@ return (
             wrapperStyle={{}}
             wrapperClass="blocks-wrapper"
             colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-        />}
+        />} */}
     {movies.map(movie => {
                 return (
-                    <ul>
-<Link key={movie.id} to={`${movie}`}>{movie.title}</Link>
+                    <ul key={movie.id}>
+                        <li >
+                        <Link key={movie.id} to={`${movie.id}`}>{movie.title}</Link>
+                        </li>
+  
                     </ul>
-                    
+                      
+                      
                 )
             })
-        }   
+        }  
     </div>);
 };
 
