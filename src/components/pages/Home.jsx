@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 import axios from 'axios';
 //import { ColorRing } from  'react-loader-spinner'
 const API_KEY = '28b9dff9541e6a7c7078bb12d751dcf6';
@@ -10,6 +11,8 @@ const Home = () => {
     const [movies, setMovies] = useState([]);
     //const [error, setError] = useState(null);
     //const [totalPages, setTotalPages] = useState(0);
+    
+    
 
     useEffect(() => {
     
@@ -21,7 +24,7 @@ const Home = () => {
                 const url = `${BASE_URL}?api_key=${API_KEY}`;
                 const response = await axios.get(url);
                 console.log(response);
-                setMovies(prevState => [...prevState, ...response.data.results]);
+                setMovies(response.data.results);
                 //setTotalPages(response.data.total_pages);
             } catch(error) {
                 //setError(error)
@@ -51,10 +54,7 @@ return (
                         <li >
                         <Link key={movie.id} to={`${movie.id}`}>{movie.title}</Link>
                         </li>
-  
-                    </ul>
-                      
-                      
+                    </ul>   
                 )
             })
         }  

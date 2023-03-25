@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 import { ColorRing } from  'react-loader-spinner'
 const API_KEY = '28b9dff9541e6a7c7078bb12d751dcf6';
@@ -9,10 +9,16 @@ const MovieDetails = () => {
     const { movieId } = useParams();
     const [isLoading, setIsLoading] = useState('false');
     const [movieItem, setMovieItem] = useState([]);
-const params = useParams();
-console.log(params)
+
+    const params = useParams();
+    const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    console.log(searchParams)
+    const goBack = () => navigate();
+
+    console.log(params)
     useEffect(() => {
-async function fetchData(){
+        async function fetchData(){
             
             setIsLoading(true);
             try {
@@ -33,10 +39,13 @@ async function fetchData(){
 
     return <>
     <h2>{ movieItem.original_title} ({ movieItem.release_date})</h2>
+    <Link type='button' onClick = { goBack } >Go back</Link>
     <div>
-        <img src={movieItem.backdrop_path
-} alt={movieItem.original_title} />
+        
+        <img src={'https://image.tmdb.org/t/p/w500'+movieItem.poster_path} alt={movieItem.original_title} />
+        <p>User Score: {movieItem.popularity} </p>
         <p>Overview: {movieItem.overview}</p>
+
     </div>
     {isLoading &&<ColorRing
             visible={true}
