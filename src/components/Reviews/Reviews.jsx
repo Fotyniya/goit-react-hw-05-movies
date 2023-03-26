@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
+import { Ul } from "components/Reviews/Reviews.styled";
 
 const API_KEY = '28b9dff9541e6a7c7078bb12d751dcf6';
 const BASE_URL = 'https://api.themoviedb.org/3/movie/';
 
-const Cast = () => {
-    const [casts, setCast] = useState([]);
+const Reviews = () => {
+    const [reviews, setReviews] = useState();
+
     const {movieId} = useParams();
 
     useEffect(() => {
@@ -15,10 +17,10 @@ const Cast = () => {
            
             //setIsLoading(true);
             try { 
-                const url = `${BASE_URL}${movieId}/credits?api_key=${API_KEY}&language=en-US`;
+                const url = `${BASE_URL}${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`;
                 const response = await axios.get(url);
-                console.log(response);
-                setCast(response.data.cast);
+                console.log(response.data.results);
+                setReviews([...response.data.results]);
                 //setTotalPages(response.data.total_pages);
             } catch(error) {
                 //setError(error)
@@ -31,20 +33,18 @@ const Cast = () => {
     }, [movieId]);
 
     return <div>
-       {casts.map(cast => {
+        {reviews.length === 0 ? <p>We don't have any reviews for this movie</p> :
+        reviews.map(review => {
             return (
-                <ul key={cast.id}>
+                <Ul key={review.id}>
                     <li >
-                    <img 
-                        src={'https://image.tmdb.org/t/p/w500'+cast.profile_path}  
-                        alt={cast.original_name} />
-                    <p>{cast.name}</p>
-                    <p>Character: {cast.character} </p>
+                        <h4>Author: {review.author}</h4>
+                        <p>{review.content}</p>
                     </li>
-                </ul>   
+                </Ul>   
                 )
             })} 
     </div>
 };
 
-export default Cast;
+export default Reviews;

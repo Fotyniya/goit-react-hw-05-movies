@@ -1,19 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy } from "react";
 import Layout from "./Layout";
+import { GlobalStyle } from "./GlobalStyle";
 
-const Home = lazy(() => import("./pages/Home"));
-const Movies = lazy(() => import("./pages/Movies"));
-const MovieDetails = lazy(() => import("./pages/MovieDetails"));
-const Cast = lazy(() => import("./Cast"));
-const Reviews = lazy(() => import("./Reviews"));
-
-//import { GlobalStyle } from "./GlobalStyle";
+const Home = lazy(() => import("../pages/Home"));
+const Movies = lazy(() => import("../pages/Movies"));
+const MovieDetails = lazy(() => import("../pages/MovieDetails"));
+const Cast = lazy(() => import("./Cast/Cast"));
+const Reviews = lazy(() => import("./Reviews/Reviews"));
 
 export const App = () => {
   
   return (
-      <Routes>
+    <>
+    <Routes>
         <Route path="/" element={<Layout />} >
           <Route index element={<Home/>} />
           <Route path="movies" element={<Movies />} />
@@ -23,7 +23,8 @@ export const App = () => {
           </ Route >
           <Route path="*" element={<Home/>} />
         </Route>
-     
       </Routes>
+      <GlobalStyle />
+    </> 
   );
 };

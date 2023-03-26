@@ -15,6 +15,7 @@ export const StyledLink = styled(NavLink)`
 `;
 
 export const Header = styled.header`
-  height: 40px;
-  background-color: grey;
+  padding: 10px;
+  height: 45px;
+  background-color: #AEC6A5;
 `;

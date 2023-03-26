@@ -1,5 +1,8 @@
 import { Suspense,useEffect, useState, useRef } from "react";
-import { Link, Outlet, useParams, useLocation } from "react-router-dom";
+import { Outlet, useParams, useLocation } from "react-router-dom";
+import { SlActionUndo } from "react-icons/sl";
+import { GoFile } from "react-icons/go";
+import { MovieCard, Description, Poster, ListGenres, Ul, StyledLink } from "components/Movie.styled";
 
 import axios from 'axios';
 import { ColorRing } from  'react-loader-spinner'
@@ -31,28 +34,33 @@ const MovieDetails = () => {
             }
         };
         fetchData()
-    },[movieId])
+    },[movieId]);
 
-    return <>
-    <Link to = {backLinkLocation.current} >Go back</Link>
+    return <div>
+    <StyledLink to = {backLinkLocation.current} ><SlActionUndo/> Go back</StyledLink>
     <h2>{ movieItem.original_title} ({movieItem.release_date === undefined ? 'no date' : movieItem.release_date.slice(0, 4)})</h2>
 
-    <div>
+    <MovieCard>
+            <Poster src={'https://image.tmdb.org/t/p/w500'+movieItem.poster_path} 
+            alt={movieItem.original_title} /> 
+        <Description>
+            <p>User Score: {(movieItem.vote_average * 10).toFixed(1)}% </p>
+            <h3>Overview: </h3>
+            <p>{movieItem.overview}</p>
+            <h3>Genres:</h3>
+            <ListGenres>
+                { movieItem.genres && movieItem.genres.map(genre => {
+                return (               
+                    <Ul key={genre.id}>
+                        <li >{genre.name}</li>
+                    </Ul>  
+                    )
+                })} 
+            </ListGenres>
+             
+        </Description>
         
-        <img src={'https://image.tmdb.org/t/p/w500'+movieItem.poster_path} alt={movieItem.original_title} />
-        <p>User Score: {movieItem.popularity} </p>
-        <p>Overview: {movieItem.overview}</p>
-        <p>Genres:</p>
-        { movieItem.genres && movieItem.genres.map(genre => {
-                return (
-                    <ul key={genre.id}>
-                        <li >
-                        {genre.name}
-                        </li>
-                    </ul>   
-                )
-            })}  
-    </div>
+    </MovieCard>
     {isLoading &&<ColorRing
             visible={true}
             height="80"
@@ -63,12 +71,12 @@ const MovieDetails = () => {
             colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />}
         
-    <ul>
+    <Ul>
         <li>
-        <Link to="cast">Cast</Link>
+            <StyledLink to="cast"><GoFile /> Cast</StyledLink>
         </li>
         <li>
-        <Link to="reviews">Reviews</Link>
+            <StyledLink to="reviews"><GoFile /> Reviews</StyledLink>
         </li>
         <Suspense fallback={<ColorRing
             visible={true}
@@ -81,9 +89,8 @@ const MovieDetails = () => {
         />}>
             <Outlet />
         </Suspense>
-    </ul>
-     
-    </>
+    </Ul>
+    </div>
 };
 
 export default MovieDetails;

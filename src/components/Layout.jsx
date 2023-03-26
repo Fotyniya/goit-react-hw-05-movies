@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 import { ColorRing } from  'react-loader-spinner'
 import {StyledLink, Header} from "./Header.styled"
+import { Container } from "components/Container.styled";
 
 const Layout = () => {
     
@@ -10,7 +11,7 @@ const Layout = () => {
             <StyledLink to="/">Home</StyledLink>
             <StyledLink to="/movies">Movies</StyledLink>
         </Header>
-        <main>
+        <Container>
             <Suspense fallback={<ColorRing
             visible={true}
             height="80"
@@ -22,7 +23,7 @@ const Layout = () => {
         />}>
                 <Outlet />
             </Suspense>
-        </main>
+        </Container>
     </div>
 };
 
