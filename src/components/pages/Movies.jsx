@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link, useLocation } from "react-router-dom";
 
 import axios from 'axios';
 import { SearchBox } from "components/SearchBox";
@@ -13,7 +13,8 @@ const Movies = () => {
     const [searchParams, setSearchParams] = useSearchParams();    
     let movieTitle = searchParams.get("filter") ?? '';
     const [movies, setMovies] = useState([]);
-   
+    const location = useLocation();
+        
     useEffect(() => {
     
         async function fetchData(){
@@ -35,10 +36,9 @@ const Movies = () => {
         fetchData()
     }, [movieTitle]);
     
-    const handleFilter = () => {
-        
-        console.log(movies);
-        
+    const handleFilter = () => {   
+        console.log(movies); 
+          
     };
     
     const updateQueryString = (filter) => {
@@ -54,7 +54,7 @@ const Movies = () => {
                 return (
                     <ul key={movie.id}>
                         <li >
-                        <Link key={movie.id} to={`${movie.id}`}>{movie.title}</Link>
+                        <Link key={movie.id} to={`/${movie.id}`} state = {{from: location}} >{movie.title}</Link>
                         </li>
                     </ul>   
                 )

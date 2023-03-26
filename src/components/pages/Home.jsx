@@ -12,8 +12,6 @@ const Home = () => {
     //const [error, setError] = useState(null);
     //const [totalPages, setTotalPages] = useState(0);
     
-    
-
     useEffect(() => {
     
         async function fetchData(){
@@ -52,7 +50,7 @@ return (
                 return (
                     <ul key={movie.id}>
                         <li >
-                        <Link key={movie.id} to={`${movie.id}`}>{movie.title}</Link>
+                        <Link key={movie.id} to={`${movie.id}`} >{movie.title}</Link>
                         </li>
                     </ul>   
                 )
