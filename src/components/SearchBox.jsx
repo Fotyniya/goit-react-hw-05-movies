@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export const SearchBox = ({ value, onChange }) => {
     return (
       <>
@@ -9,3 +11,8 @@ export const SearchBox = ({ value, onChange }) => {
       </>
     );
   };
+
+  SearchBox.propTypes = {
+    value: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+}

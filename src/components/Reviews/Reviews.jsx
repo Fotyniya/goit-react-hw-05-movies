@@ -7,7 +7,7 @@ const API_KEY = '28b9dff9541e6a7c7078bb12d751dcf6';
 const BASE_URL = 'https://api.themoviedb.org/3/movie/';
 
 const Reviews = () => {
-    const [reviews, setReviews] = useState();
+    const [reviews, setReviews] = useState([]);
 
     const {movieId} = useParams();
 
@@ -17,13 +17,13 @@ const Reviews = () => {
            
             //setIsLoading(true);
             try { 
-                const url = `${BASE_URL}${movieId}/reviews?api_key=${API_KEY}&language=en-US&page=1`;
+                const url = `${BASE_URL}${movieId}/reviews?api_key=${API_KEY}`;
                 const response = await axios.get(url);
                 console.log(response.data.results);
                 setReviews([...response.data.results]);
-                //setTotalPages(response.data.total_pages);
+                
             } catch(error) {
-                //setError(error)
+                
                 console.log (error)
             } finally {
                 //setIsLoading(false); 
